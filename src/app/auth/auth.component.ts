@@ -18,10 +18,21 @@ export class AuthComponent {
     {
       return;   
     }
-    console.log(user.value)
-    const email=user.value.email;
-    const password=user.value.password;
-    user.reset()
-    
+
+
+
+    if(this.isLoginMode){
+
+    }else{
+      const email=user.value.email;
+      const password=user.value.password;
+      this.auth.signup(email,password)
+      .subscribe((res)=>{
+        console.log(res)
+      },(err)=>{
+        console.log(err)
+      });
+      user.reset()
+    }
   }
 }
