@@ -13,6 +13,7 @@ interface AuthResponceData{
 Injectable ({providedIn: 'root'});
 export class AuthService{
     constructor( private http:HttpClient){}
+    //Create acount
     signup(email:string , password:string ){
         console.log('signup service is called')
         return this.http.post<AuthResponceData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAbg21E7AxSymXOccbQtnNjoVdIwYw9gnw',{
@@ -20,5 +21,17 @@ export class AuthService{
         password: password,
         returnSecureToken:true
        })
+    }
+
+    // sign in into your acount
+    login(email:string , password:string )
+    {
+
+       return this.http.post<AuthResponceData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAbg21E7AxSymXOccbQtnNjoVdIwYw9gnw',
+        { email:email,
+          password: password,
+          returnSecureToken:true})
+        
+
     }
 }
