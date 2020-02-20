@@ -4,7 +4,8 @@ import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-auth',
-  templateUrl: './auth.component.html'
+  templateUrl: './auth.component.html',
+  providers:[AuthService]
 })
 export class AuthComponent {
   constructor(private auth :AuthService){}
