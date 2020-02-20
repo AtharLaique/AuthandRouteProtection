@@ -10,6 +10,7 @@ import { AuthService } from './auth.service';
 export class AuthComponent {
   constructor(private auth :AuthService){}
   isLoginMode=true;
+  isloading=false;
   onSwitchMode(){this.isLoginMode=!this.isLoginMode;}
   onLogin(user:NgForm)
   {
@@ -19,20 +20,27 @@ export class AuthComponent {
       return;   
     }
     if(this.isLoginMode){
+      this.isloading=true;
       console.log('You are in login mode ')
+      this.isloading=false;
 
     }
     else
     {
       console.log("You are in signup mode ")
+      this.isloading=true;
       const email=user.value.email;
       const password=user.value.password;
       this.auth.signup(email,password)
       .subscribe((res)=>{
         console.log(res)
+        this.isloading=false;
+        
       },(err)=>{
         console.log(err)
+        this.isloading=false;
       });
+      
       user.reset()
     }
   }
