@@ -31,9 +31,19 @@ export class AuthComponent {
     }
     if(this.isLoginMode){
       this.isloading=true;
-      console.log('You are in login mode ')
-      this.isloading=false;
+      const email=user.value.email;
+      const password=user.value.password;
+      this.auth.login(email,password)
+      .subscribe((res)=>{
+        console.log(res)
 
+      },(err)=>{
+        console.log(err.error.error.message)
+        this.isloading=false;
+        this.error=true;
+        this.message=err.error.error.message;
+      })
+      
     }
     else
     {
