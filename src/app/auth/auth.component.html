@@ -1,6 +1,8 @@
 <div class="row">
-  <div class="col-xs-12 col-md-6 col-md-offset-3">
+  <div class="col-xs-12 col-md-6 col-md-offset-5" *ngIf='isloading'>
     <app-loading-spinner></app-loading-spinner>
+  </div>
+  <div class="col-xs-12 col-md-6 col-md-offset-3"  *ngIf='!isloading'>
     <form #f="ngForm" (ngSubmit)="onLogin(f)" >
       <div class="form-group">
         <label for="email">E-Mail</label>
@@ -26,9 +28,11 @@
         />
       </div>
       <div>
-        <button class="btn btn-primary" type="submit"  [disabled]='!f.valid'>{{isLoginMode?'Login' :'Sign Up'}}</button> |
-        <button class="btn btn-primary" (click)="onSwitchMode()">Switch to {{isLoginMode?'Sign Up' :'Login'}}</button>
+        <button class="btn btn-primary" type="submit"  [disabled]='!f.valid'>{{isLoginMode?'Login' :'Sign Up'}}</button> 
       </div>
     </form>
+    <br/>
+    <a routerLink='/auth' (click)="onSwitchMode()">Switch to {{isLoginMode?'Sign Up' :'Login'}}</a>
+    
   </div>
 </div>
