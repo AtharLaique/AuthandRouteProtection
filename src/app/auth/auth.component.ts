@@ -11,7 +11,17 @@ export class AuthComponent {
   constructor(private auth :AuthService){}
   isLoginMode=true;
   isloading=false;
-  onSwitchMode(){this.isLoginMode=!this.isLoginMode;}
+  error=false;
+  message=''
+  
+  onSwitchMode(){
+    if(this.error)
+    {
+      this.error=false;
+      this.message=''
+    }
+    this.isLoginMode=!this.isLoginMode;
+  }
   onLogin(user:NgForm)
   {
     if(!user.valid)
@@ -35,13 +45,18 @@ export class AuthComponent {
       .subscribe((res)=>{
         console.log(res)
         this.isloading=false;
+        this.error=true;
+        this.message='Acount is created';
+       
         
       },(err)=>{
-        console.log(err)
+        console.log(err.error.error.message)
         this.isloading=false;
+        this.error=true;
+        this.message=err.error.error.message;
       });
       
-      user.reset()
+     
     }
   }
 }
