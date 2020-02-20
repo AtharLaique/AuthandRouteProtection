@@ -10,21 +10,21 @@ import { AuthService } from './auth.service';
 export class AuthComponent {
   constructor(private auth :AuthService){}
   isLoginMode=true;
-  onSwitchMode(){
-    this.isLoginMode=!this.isLoginMode;
-  }
+  onSwitchMode(){this.isLoginMode=!this.isLoginMode;}
   onLogin(user:NgForm)
   {
     if(!user.valid)
     {
+      console.log('User is not valid !')
       return;   
     }
-
-
-
     if(this.isLoginMode){
+      console.log('You are in login mode ')
 
-    }else{
+    }
+    else
+    {
+      console.log("You are in signup mode ")
       const email=user.value.email;
       const password=user.value.password;
       this.auth.signup(email,password)

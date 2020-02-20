@@ -14,6 +14,7 @@ Injectable ({providedIn: 'root'});
 export class AuthService{
     constructor( private http:HttpClient){}
     signup(email:string , password:string ){
+        console.log('signup service is called')
         return this.http.post<AuthResponceData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAbg21E7AxSymXOccbQtnNjoVdIwYw9gnw',{
         email:email,
         password: password,
