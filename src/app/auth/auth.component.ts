@@ -17,6 +17,7 @@ export class AuthComponent {
   error=false;
   message=''
   
+  //Siwith Mode for login / signup
   onSwitchMode(){
     if(this.error)
     {
@@ -25,6 +26,8 @@ export class AuthComponent {
     }
     this.isLoginMode=!this.isLoginMode;
   }
+
+  //On signup / Login
   onLogin(user:NgForm)
   {
     if(!user.valid)
@@ -32,12 +35,15 @@ export class AuthComponent {
       console.log('User is not valid !')
       return;   
     }
+    //Login Request
     if(this.isLoginMode){
+      console.log("You are in Login mode ")
       this.isloading=true;
       const email=user.value.email;
       const password=user.value.password;
       this.authObs=this.auth.login(email,password);
     }
+    //Signup request
     else
     {
       console.log("You are in signup mode ")
@@ -46,13 +52,19 @@ export class AuthComponent {
       const password=user.value.password;
       this.authObs=this.auth.signup(email,password);
     }
+
     this.authObs.subscribe((res)=>{
-      console.log(res)
+      console.log("Request Successfully submitted !")
       this.isloading=false;
-      this.error=true;
-      this.message='Acount is created';
+     
+
+      //Deal with Signup message
+      if(!this.isLoginMode){
+        this.error=true;
+        this.message='Acount is created';
+      }
     },(err)=>{
-      console.log(err.error.error.message)
+      console.log("An Error Occured")
       this.isloading=false;
       this.error=true;
       this.message=err.error.error.message;
