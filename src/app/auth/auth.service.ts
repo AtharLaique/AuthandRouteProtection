@@ -27,10 +27,7 @@ export class AuthService{
         returnSecureToken:true
        }).pipe( tap(resData=>{
         console.log("tap signup")
-           const expirationDate=new Date( new Date().getDate()+ + resData.expiresIn*1000)
-           const user= new User(resData.email ,  resData.localId ,resData.refreshToken ,expirationDate);
-           this.user.next(user);
-        
+          
        }))
     }
 
@@ -42,7 +39,15 @@ export class AuthService{
         { email:email,
           password: password,
           returnSecureToken:true})
-        
+    
+    }
 
+    private handleAuthuntication(email:string,id:string,token:string,expireIn:number )
+    {
+
+        const expirationDate=new Date( new Date().getDate()+ expireIn*1000)
+        const user= new User(email , id ,token ,expirationDate);
+        this.user.next(user);
+     
     }
 }
