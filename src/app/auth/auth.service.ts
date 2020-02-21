@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import { User } from './user.model';
 import { Subject } from 'rxjs';
+import { tap } from 'rxjs/operators'; 
 
 export interface AuthResponceData{
     idToken:string,
@@ -24,7 +25,10 @@ export class AuthService{
         email:email,
         password: password,
         returnSecureToken:true
-       })
+       }).pipe( tap(resData=>{
+           console.log("tap")
+          console.log(resData)
+       }))
     }
 
     // sign in into your acount
