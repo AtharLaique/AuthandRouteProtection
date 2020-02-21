@@ -1,6 +1,8 @@
 //This service is Responcible for user signup and signin and token managment
 import { HttpClient } from '@angular/common/http';
 import {Injectable} from '@angular/core';
+import { User } from './user.model';
+import { Subject } from 'rxjs';
 
 export interface AuthResponceData{
     idToken:string,
@@ -12,6 +14,8 @@ export interface AuthResponceData{
 
 Injectable ({providedIn: 'root'});
 export class AuthService{
+
+    user =new Subject<User>();
     constructor( private http:HttpClient){}
     //Create acount
     signup(email:string , password:string ){
