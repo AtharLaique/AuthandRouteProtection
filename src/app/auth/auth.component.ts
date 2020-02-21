@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from './auth.service';
 import { AuthResponceData } from './auth.service';
 import { Observable } from 'rxjs';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -11,7 +12,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthComponent {
   authObs:Observable<AuthResponceData>;
-  constructor(private auth :AuthService){}
+  constructor(private auth :AuthService ,private route:Router){}
   isLoginMode=true;
   isloading=false;
   error=false;
@@ -56,7 +57,9 @@ export class AuthComponent {
     this.authObs.subscribe((res)=>{
       console.log("Request Successfully submitted !")
       this.isloading=false;
-     
+     if(this.isLoginMode){
+       this.route.navigate(['/recipes'])
+     }
 
       //Deal with Signup message
       if(!this.isLoginMode){
