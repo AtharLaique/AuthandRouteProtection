@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from './auth.service';
+import { AuthResponceData } from './auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-auth',
@@ -8,6 +10,7 @@ import { AuthService } from './auth.service';
   providers:[AuthService]
 })
 export class AuthComponent {
+  authObs:Observable<AuthResponceData>;
   constructor(private auth :AuthService){}
   isLoginMode=true;
   isloading=false;
@@ -33,17 +36,7 @@ export class AuthComponent {
       this.isloading=true;
       const email=user.value.email;
       const password=user.value.password;
-      this.auth.login(email,password)
-      .subscribe((res)=>{
-        console.log(res)
-
-      },(err)=>{
-        console.log(err.error.error.message)
-        this.isloading=false;
-        this.error=true;
-        this.message=err.error.error.message;
-      })
-      
+      this.authObs=this.auth.login(email,password);
     }
     else
     {
@@ -51,22 +44,18 @@ export class AuthComponent {
       this.isloading=true;
       const email=user.value.email;
       const password=user.value.password;
-      this.auth.signup(email,password)
-      .subscribe((res)=>{
-        console.log(res)
-        this.isloading=false;
-        this.error=true;
-        this.message='Acount is created';
-       
-        
-      },(err)=>{
-        console.log(err.error.error.message)
-        this.isloading=false;
-        this.error=true;
-        this.message=err.error.error.message;
-      });
-      
-     
+      this.authObs=this.auth.signup(email,password);
     }
+    this.authObs.subscribe((res)=>{
+      console.log(res)
+      this.isloading=false;
+      this.error=true;
+      this.message='Acount is created';
+    },(err)=>{
+      console.log(err.error.error.message)
+      this.isloading=false;
+      this.error=true;
+      this.message=err.error.error.message;
+    });
   }
 }

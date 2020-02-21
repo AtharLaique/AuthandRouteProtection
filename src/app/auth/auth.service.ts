@@ -2,7 +2,7 @@
 import { HttpClient } from '@angular/common/http';
 import {Injectable} from '@angular/core';
 
-interface AuthResponceData{
+export interface AuthResponceData{
     idToken:string,
     email:string,
     refreshToken:string,
