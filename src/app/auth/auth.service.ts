@@ -26,10 +26,11 @@ export class AuthService{
         password: password,
         returnSecureToken:true
        }).pipe( tap(resData=>{
-
+        console.log("tap signup")
            const expirationDate=new Date( new Date().getDate()+ + resData.expiresIn*1000)
-           console.log("tap")
-          console.log(expirationDate)
+           const user= new User(resData.email ,  resData.localId ,resData.refreshToken ,expirationDate);
+           this.user.next(user);
+        
        }))
     }
 
