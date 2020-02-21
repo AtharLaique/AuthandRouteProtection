@@ -26,8 +26,10 @@ export class AuthService{
         password: password,
         returnSecureToken:true
        }).pipe( tap(resData=>{
+
+           const expirationDate=new Date( new Date().getDate()+ + resData.expiresIn*1000)
            console.log("tap")
-          console.log(resData)
+          console.log(expirationDate)
        }))
     }
 
